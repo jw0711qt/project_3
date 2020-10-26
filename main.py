@@ -10,7 +10,7 @@ def main():
         elif choice == '2':
             add_artwork()
         elif choice == '3':
-            get_available_artwork_of_artist(name)
+            get_available_artwork_of_artist()
 
         elif choice == '4':
             get_all_artwork_of_artist()
@@ -24,9 +24,12 @@ def main():
 
 def add_artist():# adding artist
     name=ui.get_string('Enter name of  the Artist')
-    
     email = ui.get_string(f'Enter email for {name}')
-    database.add_artist(name,email)
+    error_message = database.add_artist(name,email)
+    if error_message:
+        print('Error adding artist: ' + error_message)
+    else:
+        print('Added artist')
 
 def add_artwork():# adding art work
     name= ui.get_string('Enter name of the art work')
@@ -40,12 +43,13 @@ def get_all_artwork_of_artist():# searching for all art work by artist
     name= ui.get_string ('Enter name ')
 
     try:
-        database.get_all_artwork_of_artist(name)
+        art = database.get_all_artwork_of_artist(name)
+        print(art)
     except:
         print ('no found ant art')
     
 
-def get_available_artwork_of_artist(name):#searching for available artwork
+def get_available_artwork_of_artist():#searching for available artwork
     name = ui.get_string('enter the of artist the one you want to see his/her arts')
     
     database.get_available_artwork_of_artist(name)
